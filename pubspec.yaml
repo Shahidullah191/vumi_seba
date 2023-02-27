@@ -38,7 +38,7 @@ dependencies:
   flutter_screenutil: ^5.6.1
   font_awesome_flutter: ^10.4.0
   photo_view: ^0.14.0
-  intl: any
+  get: ^4.6.5
 
 dev_dependencies:
   flutter_test:

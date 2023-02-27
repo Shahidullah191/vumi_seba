@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:vumi_seba/widgets/custom_expansion_card.dart';
 
 import '../../const/app_color.dart';
@@ -45,7 +46,7 @@ class _LandServicesViewAllState extends State<LandServicesViewAll> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "ভূমি সেবাসমূহ",
+                    "ভূমি সেবাসমূহ".tr,
                     style: customTextStyle(
                         16.sp, AppColor.kBlack, FontWeight.w500),
                   ),
@@ -58,21 +59,28 @@ class _LandServicesViewAllState extends State<LandServicesViewAll> {
                     child: Row(
                       children: [
                         Text(
-                          "View All",
+                          "সব দেখুন".tr,
                           style: customTextStyle(
-                              10.sp, AppColor.kDarkGreen, FontWeight.w500),
+                              12.sp, AppColor.kDarkGreen, FontWeight.w500),
                         ),
                         Icon(
                           Icons.arrow_forward,
                           color: AppColor.kDarkGreen,
-                          size: 10,
+                          size: 12,
                         ),
                       ],
                     ),
                   ),
                 ],
               ),
+              SizedBox(
+                height: 15.h,
+              ),
               ExpansionTile(
+                backgroundColor: Colors.grey.shade200,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.r),
+                ),
                 collapsedIconColor: AppColor.kDarkGreen,
                 iconColor: AppColor.kDarkGreen,
                 onExpansionChanged: (v) {
@@ -175,6 +183,10 @@ class _LandServicesViewAllState extends State<LandServicesViewAll> {
                 ],
               ),
               ExpansionTile(
+                backgroundColor: Colors.grey.shade200,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.r),
+                ),
                 collapsedIconColor: AppColor.kDarkGreen,
                 iconColor: AppColor.kDarkGreen,
                 onExpansionChanged: (v) {
@@ -254,6 +266,10 @@ class _LandServicesViewAllState extends State<LandServicesViewAll> {
                 ],
               ),
               ExpansionTile(
+                backgroundColor: Colors.grey.shade200,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.r),
+                ),
                 collapsedIconColor: AppColor.kDarkGreen,
                 iconColor: AppColor.kDarkGreen,
                 onExpansionChanged: (v) {
@@ -319,6 +335,10 @@ class _LandServicesViewAllState extends State<LandServicesViewAll> {
                 ],
               ),
               ExpansionTile(
+                backgroundColor: Colors.grey.shade200,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.r),
+                ),
                 collapsedIconColor: AppColor.kDarkGreen,
                 iconColor: AppColor.kDarkGreen,
                 onExpansionChanged: (v) {
@@ -408,6 +428,10 @@ class _LandServicesViewAllState extends State<LandServicesViewAll> {
                 ],
               ),
               ExpansionTile(
+                backgroundColor: Colors.grey.shade200,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.r),
+                ),
                 collapsedIconColor: AppColor.kDarkGreen,
                 iconColor: AppColor.kDarkGreen,
                 onExpansionChanged: (v) {
@@ -496,6 +520,10 @@ class _LandServicesViewAllState extends State<LandServicesViewAll> {
                 ],
               ),
               ExpansionTile(
+                backgroundColor: Colors.grey.shade200,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.r),
+                ),
                 collapsedIconColor: AppColor.kDarkGreen,
                 iconColor: AppColor.kDarkGreen,
                 onExpansionChanged: (v) {
@@ -573,6 +601,26 @@ class _LandServicesViewAllState extends State<LandServicesViewAll> {
                   )
                 ],
               ),
+              SizedBox(
+                height: 40,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  OutlinedButton(
+                    onPressed: () => Get.updateLocale(const Locale('bn', 'BD')),
+                    child: const Text('বাংলা'),
+                  ),
+                  SizedBox(
+                    width: 40,
+                  ),
+                  OutlinedButton(
+                    onPressed: () => Get.updateLocale(const Locale('en', 'US')),
+                    child: const Text('English'),
+                  ),
+                ],
+              )
             ],
           ),
         ),

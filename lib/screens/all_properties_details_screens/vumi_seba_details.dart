@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:vumi_seba/languages/languages.dart';
 import 'package:vumi_seba/model/vumiseba_info.dart';
 import 'package:vumi_seba/widgets/custom_textstyle.dart';
 
 import '../../const/app_color.dart';
 
 class VumiSebaDetails extends StatefulWidget {
-  final id;
-  VumiSebaDetails({Key? key, required this.id}) : super(key: key);
+  final int id;
+  const VumiSebaDetails({Key? key, required this.id}) : super(key: key);
 
   @override
   State<VumiSebaDetails> createState() => _VumiSebaDetailsState();
@@ -17,7 +19,7 @@ class VumiSebaDetails extends StatefulWidget {
 class _VumiSebaDetailsState extends State<VumiSebaDetails>
     with TickerProviderStateMixin {
   late final AnimationController _controller =
-      AnimationController(vsync: this, duration: Duration(seconds: 2))
+      AnimationController(vsync: this, duration: const Duration(seconds: 2))
         ..repeat(reverse: true);
 
   late final Animation<double> _animation =
@@ -31,31 +33,6 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
       point.add(element);
     });
     return point;
-  }
-
-  translate(var text) {
-    text = text.toString();
-    if (text == "0") {
-      return "০";
-    } else if (text == "1") {
-      return "১";
-    } else if (text == "2") {
-      return "২";
-    } else if (text == "3") {
-      return "৩";
-    } else if (text == "4") {
-      return "৪";
-    } else if (text == "5") {
-      return "৫";
-    } else if (text == "6") {
-      return "৬";
-    } else if (text == "7") {
-      return "৭";
-    } else if (text == "8") {
-      return "৮";
-    } else if (text == "9") {
-      return "৯";
-    }
   }
 
   @override
@@ -114,7 +91,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                 width: ScreenUtil().screenWidth,
                 color: AppColor.kPurple,
                 child: Text(
-                  "সেবা প্রদান পদ্ধতি (সংক্ষেপে)",
+                  "সেবা প্রদান পদ্ধতি (সংক্ষেপে)".tr,
                   style:
                       customTextStyle(14.sp, AppColor.kWhite, FontWeight.w600),
                 ),
@@ -148,7 +125,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                       width: 10.w,
                     ),
                     Text(
-                      "সেবা প্রাপ্তি সময়",
+                      "সেবা প্রাপ্তি সময়".tr,
                       style: customTextStyle(
                           14.sp, AppColor.kWhite, FontWeight.w600),
                     ),
@@ -183,7 +160,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                       width: 10.w,
                     ),
                     Text(
-                      "প্রয়োজনীয় ফি",
+                      "প্রয়োজনীয় ফি".tr,
                       style: customTextStyle(
                           14.sp, AppColor.kWhite, FontWeight.w600),
                     ),
@@ -217,7 +194,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                         color: AppColor.kWhite,
                         child: Stack(
                           children: [
-                            Text('${translate(i + 1)}.',
+                            Text('${Languages.translate(i + 1)}.',
                                 style: customTextStyle(14.sp, Colors.black54)),
                             Container(
                               padding: EdgeInsets.only(left: 20.w),
@@ -246,7 +223,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                       width: 10.w,
                     ),
                     Text(
-                      "সেবা প্রাপ্তির স্থান",
+                      "সেবা প্রাপ্তির স্থান".tr,
                       style: customTextStyle(
                           14.sp, AppColor.kWhite, FontWeight.w600),
                     ),
@@ -259,7 +236,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                 width: ScreenUtil().screenWidth,
               ),
               Container(
-                  padding: EdgeInsets.all(12),
+                  padding: EdgeInsets.all(10),
                   width: ScreenUtil().screenWidth,
                   color: AppColor.kWhite,
                   child: Row(
@@ -268,7 +245,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                         flex: 3,
                         child: Image.asset(
                           "images/icons/img_view_two.png",
-                          height: 90.h,
+                          height: 60.h,
                         ),
                       ),
                       SizedBox(
@@ -297,7 +274,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                       width: 10.w,
                     ),
                     Text(
-                      "দায়িত্বপ্রাপ্ত কর্মকর্তা/কর্মচারী",
+                      "দায়িত্বপ্রাপ্ত কর্মকর্তা/কর্মচারী".tr,
                       style: customTextStyle(
                           14.sp, AppColor.kWhite, FontWeight.w600),
                     ),
@@ -310,7 +287,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                 width: ScreenUtil().screenWidth,
               ),
               Container(
-                  padding: EdgeInsets.all(12),
+                  padding: EdgeInsets.all(10),
                   width: ScreenUtil().screenWidth,
                   color: AppColor.kWhite,
                   child: Row(
@@ -318,7 +295,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                       Expanded(
                         child: Image.asset(
                           "images/icons/img_view_one.png",
-                          height: 90.h,
+                          height: 60.h,
                         ),
                         flex: 3,
                       ),
@@ -350,7 +327,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                     Column(
                       children: [
                         Text(
-                          "প্রয়োজনীয় কাগজপত্র",
+                          "প্রয়োজনীয় কাগজপত্র".tr,
                           style: customTextStyle(
                               14.sp, AppColor.kWhite, FontWeight.w600),
                         ),
@@ -386,7 +363,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                         color: AppColor.kWhite,
                         child: Stack(
                           children: [
-                            Text('${translate(i + 1)}.',
+                            Text('${Languages.translate(i + 1)}.',
                                 style: customTextStyle(14.sp, Colors.black54)),
                             Container(
                               padding: EdgeInsets.only(left: 20.w),
@@ -415,7 +392,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                       width: 10.w,
                     ),
                     Text(
-                      "সেবা প্রাপ্তির শর্তাবলি",
+                      "সেবা প্রাপ্তির শর্তাবলি".tr,
                       style: customTextStyle(
                           14.sp, AppColor.kWhite, FontWeight.w600),
                     ),
@@ -450,7 +427,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                       width: 10.w,
                     ),
                     Text(
-                      "সংশ্লিষ্ট আইন ও বিধি",
+                      "সংশ্লিষ্ট আইন ও বিধি".tr,
                       style: customTextStyle(
                           14.sp, AppColor.kWhite, FontWeight.w600),
                     ),
@@ -484,7 +461,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                         color: AppColor.kWhite,
                         child: Stack(
                           children: [
-                            Text('${translate(i + 1)}.',
+                            Text('${Languages.translate(i + 1)}.',
                                 style: customTextStyle(14.sp, Colors.black54)),
                             Container(
                               padding: EdgeInsets.only(left: 20.w),
@@ -512,10 +489,13 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                     SizedBox(
                       width: 10.w,
                     ),
-                    Text(
-                      "সেবা প্রদানে ব্যর্থ হলে প্রতিকারকারী কর্মকর্তা",
-                      style: customTextStyle(
-                          14.sp, AppColor.kWhite, FontWeight.w600),
+                    Container(
+                      width: ScreenUtil().screenWidth * 0.8,
+                      child: Text(
+                        "সেবা প্রদানে ব্যর্থ হলে প্রতিকারকারী কর্মকর্তা".tr,
+                        style: customTextStyle(
+                            14.sp, AppColor.kWhite, FontWeight.w600),
+                      ),
                     ),
                   ],
                 ),
@@ -548,7 +528,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                       width: 10.w,
                     ),
                     Text(
-                      "পদ্ধতি চিত্র",
+                      "পদ্ধতি চিত্র".tr,
                       style: customTextStyle(
                           14.sp, AppColor.kWhite, FontWeight.w600),
                     ),
@@ -589,7 +569,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                                           },
                                           icon: Icon(Icons.arrow_back)),
                                       title: Text(
-                                        "পদ্ধতি চিত্র",
+                                        "পদ্ধতি চিত্র".tr,
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 18.sp),
@@ -623,7 +603,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                                   border: Border.all(color: Colors.grey),
                                 ),
                                 child: Text(
-                                  "ক্লিক করুন",
+                                  "ক্লিক করুন".tr,
                                   style: customTextStyle(
                                       14.sp, AppColor.kPurple, FontWeight.w600),
                                 ),
