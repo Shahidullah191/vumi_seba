@@ -20,7 +20,7 @@ Widget customOtherApplicationCard(String title, image, packageName) {
       children: [
         Card(
           child: SizedBox(
-              height: 136.h,
+              height: 160.h,
               width: 150.w,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

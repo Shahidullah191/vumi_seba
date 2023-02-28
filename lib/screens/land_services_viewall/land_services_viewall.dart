@@ -8,6 +8,7 @@ import '../../const/app_color.dart';
 import '../../widgets/custom_textstyle.dart';
 import '../all_properties_details_screens/vumi_seba_details.dart';
 import '../all_properties_details_screens/vumi_seba_sumuho.dart';
+import '../vumisebai_kormokorta/vumisebai_kormokorta.dart';
 
 class LandServicesViewAll extends StatefulWidget {
   const LandServicesViewAll({Key? key}) : super(key: key);
@@ -23,6 +24,7 @@ class _LandServicesViewAllState extends State<LandServicesViewAll> {
   bool value3 = false;
   bool value4 = false;
   bool value5 = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -640,6 +642,16 @@ class _LandServicesViewAllState extends State<LandServicesViewAll> {
                     ));
                   },
                   child: const Text('Other Application'),
+                ),
+              ),
+              Center(
+                child: OutlinedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => VumiSebaiKormokorta(),
+                    ));
+                  },
+                  child: const Text('Vumisebai Kormo korta'),
                 ),
               ),
             ],
