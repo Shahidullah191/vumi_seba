@@ -6,26 +6,17 @@ import 'custom_textstyle.dart';
 
 Widget customContainerHeading(String headingText) {
   return Container(
-    height: 60.h,
+    //height: 50.h,
+    padding: EdgeInsets.all(15.w),
     width: ScreenUtil().screenWidth,
     decoration: BoxDecoration(
-      gradient: LinearGradient(colors: [
-        AppColor.kPurple,
-        AppColor.kGreen,
-      ]),
-      borderRadius: BorderRadius.circular(20.r),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey,
-          blurRadius: 20.0, // Soften the shaodw
-          spreadRadius: 5.0,
-          offset: Offset(0.0, 0.0),
-        )
-      ],
+      color: AppColor.kDarkGreen,
+      borderRadius: BorderRadius.circular(10.r),
     ),
     child: Center(
       child: Text(
         headingText,
+        textAlign: TextAlign.center,
         style: customTextStyle(16.sp, AppColor.kWhite, FontWeight.w600),
       ),
     ),

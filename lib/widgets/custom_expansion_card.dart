@@ -12,7 +12,7 @@ Widget customExpansionCard(String title) {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 10),
+            padding: EdgeInsets.only(left: 10.w),
             child: SizedBox(
               width: ScreenUtil().screenWidth * 0.75,
               child: Text(

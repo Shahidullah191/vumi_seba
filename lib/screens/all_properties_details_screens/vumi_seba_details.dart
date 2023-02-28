@@ -58,11 +58,11 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
       backgroundColor: AppColor.kBg,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: AppColor.kPurple,
+        backgroundColor: AppColor.kDarkGreen,
         title: Text(
           vumiSebaInfo.title,
           softWrap: true,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
+          style: customTextStyle(16.sp, AppColor.kWhite, FontWeight.w700),
         ),
         centerTitle: true,
       ),
@@ -72,7 +72,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
           child: Column(
             children: [
               Container(
-                padding: EdgeInsets.all(12),
+                padding: EdgeInsets.all(12.w),
                 //height: 30.h,
                 width: ScreenUtil().screenWidth,
                 color: Colors.teal,
@@ -87,7 +87,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                 height: 3.h,
               ),
               Container(
-                padding: EdgeInsets.all(12),
+                padding: EdgeInsets.all(12.w),
                 width: ScreenUtil().screenWidth,
                 color: AppColor.kPurple,
                 child: Text(
@@ -102,7 +102,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                 width: ScreenUtil().screenWidth,
               ),
               Container(
-                padding: EdgeInsets.all(12),
+                padding: EdgeInsets.all(12.w),
                 width: ScreenUtil().screenWidth,
                 color: AppColor.kWhite,
                 child: Text(
@@ -112,7 +112,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                 ),
               ),
               Container(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(10.w),
                 width: ScreenUtil().screenWidth,
                 color: AppColor.kGreen,
                 child: Row(
@@ -138,7 +138,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                 width: ScreenUtil().screenWidth,
               ),
               Container(
-                padding: EdgeInsets.all(12),
+                padding: EdgeInsets.all(12.w),
                 width: ScreenUtil().screenWidth,
                 color: AppColor.kWhite,
                 child: Text(
@@ -147,7 +147,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                 ),
               ),
               Container(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(10.w),
                 width: ScreenUtil().screenWidth,
                 color: AppColor.kPurple,
                 child: Row(
@@ -181,15 +181,22 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                         i++)
                       Container(
                         padding: point.length == 1
-                            ? EdgeInsets.symmetric(horizontal: 12, vertical: 10)
+                            ? EdgeInsets.symmetric(
+                                horizontal: 12.w, vertical: 10.h)
                             : point.last == point[i]
                                 ? EdgeInsets.only(
-                                    left: 12, right: 12, bottom: 12, top: 2)
+                                    left: 12.w,
+                                    right: 12.w,
+                                    bottom: 12.h,
+                                    top: 2.h)
                                 : point.first == point[i]
                                     ? EdgeInsets.only(
-                                        left: 12, right: 12, top: 12, bottom: 2)
+                                        left: 12.w,
+                                        right: 12.w,
+                                        top: 12.h,
+                                        bottom: 2.h)
                                     : EdgeInsets.symmetric(
-                                        horizontal: 12, vertical: 1),
+                                        horizontal: 12.w, vertical: 1.h),
                         width: ScreenUtil().screenWidth,
                         color: AppColor.kWhite,
                         child: Stack(
@@ -210,7 +217,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                 ),
               ),
               Container(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(10.w),
                 width: ScreenUtil().screenWidth,
                 color: AppColor.kGreen,
                 child: Row(
@@ -236,7 +243,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                 width: ScreenUtil().screenWidth,
               ),
               Container(
-                  padding: EdgeInsets.all(10),
+                  padding: EdgeInsets.all(10.w),
                   width: ScreenUtil().screenWidth,
                   color: AppColor.kWhite,
                   child: Row(
@@ -261,7 +268,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                     ],
                   )),
               Container(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(10.w),
                 width: ScreenUtil().screenWidth,
                 color: AppColor.kPurple,
                 child: Row(
@@ -287,17 +294,17 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                 width: ScreenUtil().screenWidth,
               ),
               Container(
-                  padding: EdgeInsets.all(10),
+                  padding: EdgeInsets.all(10.w),
                   width: ScreenUtil().screenWidth,
                   color: AppColor.kWhite,
                   child: Row(
                     children: [
                       Expanded(
+                        flex: 3,
                         child: Image.asset(
                           "images/icons/img_view_one.png",
                           height: 60.h,
                         ),
-                        flex: 3,
                       ),
                       SizedBox(
                         width: 20.w,
@@ -312,7 +319,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                     ],
                   )),
               Container(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(10.w),
                 width: ScreenUtil().screenWidth,
                 color: AppColor.kGreen,
                 child: Row(
@@ -350,15 +357,22 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                         i++)
                       Container(
                         padding: point.length == 1
-                            ? EdgeInsets.symmetric(horizontal: 12, vertical: 10)
+                            ? EdgeInsets.symmetric(
+                                horizontal: 12.w, vertical: 10.h)
                             : point.last == point[i]
                                 ? EdgeInsets.only(
-                                    left: 12, right: 12, bottom: 12, top: 2)
+                                    left: 12.w,
+                                    right: 12.w,
+                                    bottom: 12.h,
+                                    top: 2.h)
                                 : point.first == point[i]
                                     ? EdgeInsets.only(
-                                        left: 12, right: 12, top: 12, bottom: 2)
+                                        left: 12.w,
+                                        right: 12.w,
+                                        top: 12.h,
+                                        bottom: 2.h)
                                     : EdgeInsets.symmetric(
-                                        horizontal: 12, vertical: 1),
+                                        horizontal: 12.w, vertical: 1.h),
                         width: ScreenUtil().screenWidth,
                         color: AppColor.kWhite,
                         child: Stack(
@@ -379,7 +393,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                 ),
               ),
               Container(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(10.w),
                 width: ScreenUtil().screenWidth,
                 color: AppColor.kPurple,
                 child: Row(
@@ -405,7 +419,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                 width: ScreenUtil().screenWidth,
               ),
               Container(
-                padding: EdgeInsets.all(12),
+                padding: EdgeInsets.all(12.w),
                 width: ScreenUtil().screenWidth,
                 color: AppColor.kWhite,
                 child: Text(
@@ -414,7 +428,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                 ),
               ),
               Container(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(10.w),
                 width: ScreenUtil().screenWidth,
                 color: AppColor.kGreen,
                 child: Row(
@@ -448,15 +462,22 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                         i++)
                       Container(
                         padding: point.length == 1
-                            ? EdgeInsets.symmetric(horizontal: 12, vertical: 10)
+                            ? EdgeInsets.symmetric(
+                                horizontal: 12.w, vertical: 10.h)
                             : point.last == point[i]
                                 ? EdgeInsets.only(
-                                    left: 12, right: 12, bottom: 12, top: 2)
+                                    left: 12.w,
+                                    right: 12.w,
+                                    bottom: 12.h,
+                                    top: 2.h)
                                 : point.first == point[i]
                                     ? EdgeInsets.only(
-                                        left: 12, right: 12, top: 12, bottom: 2)
+                                        left: 12.w,
+                                        right: 12.w,
+                                        top: 12.h,
+                                        bottom: 2.h)
                                     : EdgeInsets.symmetric(
-                                        horizontal: 12, vertical: 1),
+                                        horizontal: 12.w, vertical: 1.h),
                         width: ScreenUtil().screenWidth,
                         color: AppColor.kWhite,
                         child: Stack(
@@ -477,7 +498,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                 ),
               ),
               Container(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(10.w),
                 width: ScreenUtil().screenWidth,
                 color: AppColor.kPurple,
                 child: Row(
@@ -489,7 +510,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                     SizedBox(
                       width: 10.w,
                     ),
-                    Container(
+                    SizedBox(
                       width: ScreenUtil().screenWidth * 0.8,
                       child: Text(
                         "সেবা প্রদানে ব্যর্থ হলে প্রতিকারকারী কর্মকর্তা".tr,
@@ -506,7 +527,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                 width: ScreenUtil().screenWidth,
               ),
               Container(
-                padding: EdgeInsets.all(12),
+                padding: EdgeInsets.all(12.w),
                 width: ScreenUtil().screenWidth,
                 color: AppColor.kWhite,
                 child: Text(
@@ -515,7 +536,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                 ),
               ),
               Container(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(10.w),
                 width: ScreenUtil().screenWidth,
                 color: AppColor.kGreen,
                 child: Row(
@@ -541,7 +562,7 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                 width: ScreenUtil().screenWidth,
               ),
               Container(
-                  padding: EdgeInsets.all(12),
+                  padding: EdgeInsets.all(12.w),
                   width: ScreenUtil().screenWidth,
                   color: AppColor.kWhite,
                   child: Column(
@@ -562,17 +583,16 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                                   return Scaffold(
                                     appBar: AppBar(
                                       elevation: 0,
-                                      backgroundColor: AppColor.kPurple,
+                                      backgroundColor: AppColor.kDarkGreen,
                                       leading: IconButton(
                                           onPressed: () {
                                             Navigator.of(context).pop();
                                           },
-                                          icon: Icon(Icons.arrow_back)),
+                                          icon: const Icon(Icons.arrow_back)),
                                       title: Text(
                                         "পদ্ধতি চিত্র".tr,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18.sp),
+                                        style: customTextStyle(16.sp,
+                                            AppColor.kWhite, FontWeight.w700),
                                       ),
                                       centerTitle: true,
                                     ),
@@ -580,7 +600,8 @@ class _VumiSebaDetailsState extends State<VumiSebaDetails>
                                       height: ScreenUtil().screenHeight,
                                       width: ScreenUtil().screenWidth,
                                       child: PhotoView(
-                                          backgroundDecoration: BoxDecoration(
+                                          backgroundDecoration:
+                                              const BoxDecoration(
                                             color: AppColor.kBg,
                                           ),
                                           imageProvider: AssetImage(

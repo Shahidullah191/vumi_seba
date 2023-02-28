@@ -1,64 +1,79 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../const/app_color.dart';
 import 'custom_textstyle.dart';
 
 Widget customContainerProperties(
-    String propertiesText, onTap, IconData iconData) {
+  String propertiesText,
+  onTap,
+) {
   return InkWell(
     onTap: onTap,
-    child: Container(
-      height: 120.h,
-      width: ScreenUtil().screenWidth * 0.45,
-      decoration: BoxDecoration(
-        // gradient: LinearGradient(colors: [
-        //   AppColor.kPurple,
-        //   AppColor.kGreen,
-        // ]),
-
-        gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            stops: [
-              0.2,
-              0.5,
-              0.8,
-              0.7
-            ],
-            colors: [
-              Colors.green.shade200,
-              Colors.green.shade300,
-              Colors.deepPurple.shade400,
-              Colors.deepPurple.shade500
-            ]),
-
-        borderRadius: BorderRadius.circular(20.r),
-        // boxShadow: [
-        //   BoxShadow(
-        //     color: Colors.grey,
-        //     blurRadius: 20.0, // Soften the shaodw
-        //     spreadRadius: 5.0,
-        //     offset: Offset(0.0, 0.0),
-        //   )
-        // ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          CircleAvatar(
-            radius: 30.r,
-            backgroundColor: Colors.white,
-            child: FaIcon(iconData),
+    child: Stack(
+      children: [
+        Card(
+          child: Padding(
+            padding: EdgeInsets.all(5.0.w),
+            child: SizedBox(
+              height: 180.h,
+              width: 146.w,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 8.h,
+                  ),
+                  Image.asset(
+                    "images/icons/icon_all_seba.png",
+                    width: 60.w,
+                    height: 60.h,
+                    fit: BoxFit.fill,
+                  ),
+                  SizedBox(
+                    height: 8.h,
+                  ),
+                  Text(
+                    propertiesText,
+                    textAlign: TextAlign.center,
+                    style:
+                        customTextStyle(14.sp, Colors.black, FontWeight.w400),
+                  ),
+                ],
+              ),
+            ),
           ),
-          Text(
-            propertiesText,
-            textAlign: TextAlign.center,
-            style: customTextStyle(12.sp, AppColor.kWhite, FontWeight.w400),
-          ),
-        ],
-      ),
+        ),
+        Positioned(
+            left: 3.5.w,
+            bottom: 0.h,
+            right: 3.5.w,
+            child: Container(
+                height: 35.h,
+                width: ScreenUtil().screenWidth,
+                decoration: BoxDecoration(
+                    color: AppColor.kOlive,
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(5.r),
+                        bottomRight: Radius.circular(5.r))),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Details",
+                      style: customTextStyle(
+                          14.sp, AppColor.kWhite, FontWeight.w600),
+                    ),
+                    SizedBox(
+                      width: 8.w,
+                    ),
+                    Icon(
+                      Icons.arrow_forward,
+                      size: 15.w,
+                      color: AppColor.kWhite,
+                    ),
+                  ],
+                ))),
+      ],
     ),
   );
 }
