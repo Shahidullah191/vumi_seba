@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:vumi_seba/screens/bottom_navbar/bottom_nav_bar.dart';
 import 'package:vumi_seba/screens/land_services_viewall/land_services_viewall.dart';
 
 import 'languages/languages.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home: LandServicesViewAll(),
+          home: BottomNavBar(),
         );
       },
     );
