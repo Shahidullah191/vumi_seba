@@ -647,9 +647,9 @@ class _LandServicesViewAllState extends State<LandServicesViewAll> {
               Center(
                 child: OutlinedButton(
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => VumiSebaiKormokorta(),
-                    ));
+                    // Navigator.of(context).push(MaterialPageRoute(
+                    //   builder: (context) => VumiSebaiKormokorta(),
+                    // ));
                   },
                   child: const Text('Vumisebai Kormo korta'),
                 ),

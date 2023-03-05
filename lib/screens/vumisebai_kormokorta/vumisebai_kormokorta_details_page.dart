@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:vumi_seba/screens/vumisebai_kormokorta/vumisebai_kormokorta.dart';
 
 import '../../const/app_color.dart';
 import '../../widgets/custom_textstyle.dart';
 
 class VumiSebaiKormokortaDetails extends StatefulWidget {
-  const VumiSebaiKormokortaDetails({Key? key}) : super(key: key);
+
+  final void user;
+
+   VumiSebaiKormokortaDetails({Key? key, required this.user}) : super(key: key);
 
   @override
   State<VumiSebaiKormokortaDetails> createState() =>
@@ -67,6 +71,20 @@ class _VumiSebaiKormokortaDetailsState
                       15.sp, AppColor.kDarkGreen, FontWeight.w400),
                 ),
               ),
+            ),
+
+
+            ListView.builder(
+              itemCount: VumiSebaiKormokortaState.users.length,
+              itemBuilder: (context, index) {
+                final user = VumiSebaiKormokortaState.users[index];
+                return ListTile(
+
+                  title: Text(user['name']),
+                  subtitle: Text(user['designation']),
+
+                );
+              },
             ),
           ],
         ),

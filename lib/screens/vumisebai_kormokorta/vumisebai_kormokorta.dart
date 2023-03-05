@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,33 +8,66 @@ import 'package:vumi_seba/screens/vumisebai_kormokorta/vumisebai_kormokorta_deta
 
 import '../../const/app_color.dart';
 import '../../widgets/custom_textstyle.dart';
+import 'package:http/http.dart' as http;
 
 class VumiSebaiKormokorta extends StatefulWidget {
-  const VumiSebaiKormokorta({Key? key}) : super(key: key);
+  final String token;
+  const VumiSebaiKormokorta({Key? key, required this.token}) : super(key: key);
 
   @override
-  State<VumiSebaiKormokorta> createState() => _VumiSebaiKormokortaState();
+  State<VumiSebaiKormokorta> createState() => VumiSebaiKormokortaState();
 }
 
-class _VumiSebaiKormokortaState extends State<VumiSebaiKormokorta> {
-  final List<String> items1 = [
-    'Item1',
-    'Item2',
-    'Item3',
-  ];
-  final List<String> items2 = [
-    'Item1',
-    'Item2',
-    'Item3',
-  ];
-  final List<String> items3 = [
-    'Item1',
-    'Item2',
-    'Item3',
-  ];
-  String? selectedValue1;
-  String? selectedValue2;
-  String? selectedValue3;
+class VumiSebaiKormokortaState extends State<VumiSebaiKormokorta> {
+
+  late List _divisions;
+  late String? _selectedDivision;
+  bool _isLoading = false;
+
+
+
+  //////////////////////////////////////////////
+
+  late List _districts;
+  late String? _selectedDistrict;
+
+  /////////////////////////////////////////
+
+  late List _upazilas;
+  late String? _selectedUpazila;
+
+  ///////////////////////////////////////////////
+
+
+
+
+  @override
+  void initState() {
+    super.initState();
+    _getDivisions();
+    _getDistricts();
+    _getUpazilas();
+  }
+
+
+  // final List<String> items1 = [
+  //   'Item1',
+  //   'Item2',
+  //   'Item3',
+  // ];
+  // final List<String> items2 = [
+  //   'Item1',
+  //   'Item2',
+  //   'Item3',
+  // ];
+  // final List<String> items3 = [
+  //   'Item1',
+  //   'Item2',
+  //   'Item3',
+  // ];
+  // String? selectedValue1;
+  // String? selectedValue2;
+  // String? selectedValue3;
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +152,7 @@ class _VumiSebaiKormokortaState extends State<VumiSebaiKormokorta> {
                             ),
                           ),
                         ),
-                        items: items1
+                        items: _divisions
                             .map((item) => DropdownMenuItem<String>(
                                   value: item,
                                   child: Padding(
@@ -131,12 +166,12 @@ class _VumiSebaiKormokortaState extends State<VumiSebaiKormokorta> {
                                   ),
                                 ))
                             .toList(),
-                        value: selectedValue1,
+                        value: _selectedDivision,
                         onChanged: (value) {
                           setState(() {
-                            selectedValue1 = value as String;
-                            selectedValue2 = null;
-                            selectedValue3 = null;
+                            _selectedDivision = value as String;
+                            _selectedDistrict = null;
+                            _selectedUpazila = null;
                           });
                         },
                         buttonStyleData: ButtonStyleData(
@@ -184,7 +219,7 @@ class _VumiSebaiKormokortaState extends State<VumiSebaiKormokorta> {
                       thickness: 2.h,
                       color: AppColor.kDarkGreen,
                     ),
-                    if (selectedValue1 != null)
+                    if (_selectedDivision != null)
                       DropdownButtonHideUnderline(
                         child: DropdownButton2(
                           hint: Padding(
@@ -197,7 +232,7 @@ class _VumiSebaiKormokortaState extends State<VumiSebaiKormokorta> {
                               ),
                             ),
                           ),
-                          items: items2
+                          items: _districts
                               .map((item) => DropdownMenuItem<String>(
                                     value: item,
                                     child: Padding(
@@ -211,11 +246,11 @@ class _VumiSebaiKormokortaState extends State<VumiSebaiKormokorta> {
                                     ),
                                   ))
                               .toList(),
-                          value: selectedValue2,
+                          value: _selectedDistrict,
                           onChanged: (value) {
                             setState(() {
-                              selectedValue2 = value as String;
-                              selectedValue3 = null;
+                              _selectedDistrict = value as String;
+                              _selectedUpazila = null;
                             });
                           },
                           buttonStyleData: ButtonStyleData(
@@ -262,7 +297,7 @@ class _VumiSebaiKormokortaState extends State<VumiSebaiKormokorta> {
                       thickness: 2.h,
                       color: AppColor.kDarkGreen,
                     ),
-                    if (selectedValue2 != null)
+                    if (_selectedDistrict != null)
                       DropdownButtonHideUnderline(
                         child: DropdownButton2(
                           hint: Padding(
@@ -275,7 +310,7 @@ class _VumiSebaiKormokortaState extends State<VumiSebaiKormokorta> {
                               ),
                             ),
                           ),
-                          items: items3
+                          items: _upazilas
                               .map((item) => DropdownMenuItem<String>(
                                     value: item,
                                     child: Padding(
@@ -289,10 +324,10 @@ class _VumiSebaiKormokortaState extends State<VumiSebaiKormokorta> {
                                     ),
                                   ))
                               .toList(),
-                          value: selectedValue3,
+                          value: _selectedUpazila,
                           onChanged: (value) {
                             setState(() {
-                              selectedValue3 = value as String;
+                              _selectedUpazila = value as String;
                             });
                           },
                           buttonStyleData: ButtonStyleData(
@@ -328,7 +363,7 @@ class _VumiSebaiKormokortaState extends State<VumiSebaiKormokorta> {
                     SizedBox(
                       height: 20.h,
                     ),
-                    if (selectedValue3 != null)
+                    if (_selectedUpazila != null)
                       Center(
                         child: OutlinedButton(
                           style: OutlinedButton.styleFrom(
@@ -337,7 +372,9 @@ class _VumiSebaiKormokortaState extends State<VumiSebaiKormokorta> {
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) =>
-                                  const VumiSebaiKormokortaDetails(),
+                                   VumiSebaiKormokortaDetails(
+                                       user: getUsers(),
+                                   ),
                             ));
                           },
                           child: Text(
@@ -372,4 +409,106 @@ class _VumiSebaiKormokortaState extends State<VumiSebaiKormokorta> {
       ),
     );
   }
+
+
+  Future<void> _getDivisions() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    final String apiUrl = 'https://mutation-api-stage.land.gov.bd/api/divisions';
+    final response = await http.post(
+      Uri.parse(apiUrl),
+      headers: {'Authorization': 'Bearer ${widget.token}'},
+    );
+
+    setState(() {
+      _isLoading = false;
+    });
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      setState(() {
+        _divisions = data['divisions'];
+      });
+    } else {
+      throw Exception('Failed to get divisions');
+    }
+  }
+
+
+  //////////////////////////////////////////////////////////////////
+
+  Future<void> _getDistricts() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    final String apiUrl = 'https://mutation-api-stage.land.gov.bd/api/districts';
+    final response = await http.post(
+      Uri.parse(apiUrl),
+      headers: {'Authorization': 'Bearer ${widget.token}'},
+      body: {'division': _selectedDivision},
+    );
+
+    setState(() {
+      _isLoading = false;
+    });
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      setState(() {
+        _districts = data['districts'];
+      });
+    } else {
+      throw Exception('Failed to get districts');
+    }
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////
+
+  Future<void> _getUpazilas() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    final String apiUrl = 'https://mutation-api-stage.land.gov.bd/api/upazilas?districtsId=$_selectedDistrict';
+    final response = await http.post(
+      Uri.parse(apiUrl),
+      headers: {'Authorization': 'Bearer ${widget.token}'},
+    );
+
+    setState(() {
+      _isLoading = false;
+    });
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      setState(() {
+        _upazilas = data['upazilas'];
+      });
+    } else {
+      throw Exception('Failed to get upazilas');
+    }
+  }
+
+  ///////////////////////////////////////////////////////////////////////////
+  static List<dynamic> users = [];
+  Future<void> getUsers() async {
+    final String apiUrl = 'https://mutation-api-stage.land.gov.bd/api/get-office-wise-user';
+    final response = await http.post(
+      Uri.parse(apiUrl),
+      headers: {'Authorization': 'Bearer ${widget.token}'},
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      setState(() {
+        users = data['users'];
+      });
+    } else {
+      throw Exception('Failed to get users');
+    }
+  }
+
 }
