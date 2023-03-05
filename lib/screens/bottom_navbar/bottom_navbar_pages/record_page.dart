@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class RecordPage extends StatefulWidget {
   const RecordPage({Key? key}) : super(key: key);
 
@@ -9,8 +10,6 @@ class RecordPage extends StatefulWidget {
 class _RecordPageState extends State<RecordPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-
-    );
+    return Scaffold();
   }
 }

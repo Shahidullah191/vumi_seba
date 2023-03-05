@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:vumi_seba/const/app_color.dart';
 import 'package:vumi_seba/widgets/custom_textstyle.dart';
 
-import 'bottom_navbar_pages/home_page.dart';
+import '../vumiseba_dashboard/vumiseba_dashboard.dart';
+import 'bottom_navbar_pages/profile.dart';
 import 'bottom_navbar_pages/record_page.dart';
 import 'bottom_navbar_pages/search_page.dart';
-import 'bottom_navbar_pages/setting_page.dart';
-
-
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({Key? key}) : super(key: key);
@@ -18,40 +18,50 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
+  final pages = [
+    VumiSebaDashboard(),
+    SearchPage(),
+    RecordPage(),
+    ProfilePage()
+  ];
 
-  final pages = [HomePage(), SearchPage(), RecordPage(), SettingPage()];
   int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.greenAccent.withOpacity(0.2),
       bottomNavigationBar: ClipRRect(
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(15.r), topRight: Radius.circular(15.r)),
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(12.r), topRight: Radius.circular(12.r)),
         child: BottomNavigationBar(
+          backgroundColor: Colors.transparent,
           selectedItemColor: Colors.white,
           unselectedItemColor: Colors.grey,
-          selectedLabelStyle: customTextStyle(16, Colors.white),
+          showUnselectedLabels: true,
+          selectedLabelStyle: customTextStyle(16.sp, Colors.white),
+          unselectedLabelStyle: customTextStyle(12.sp, Colors.grey),
           currentIndex: _currentIndex,
           items: [
             BottomNavigationBarItem(
-              label: "Home",
-              icon: Icon(Icons.home),
+              label: "হোম".tr,
+              icon: Icon(
+                FontAwesomeIcons.house,
+              ),
               backgroundColor: AppColor.kDarkGreen,
             ),
             BottomNavigationBarItem(
-              label: "Category",
-              icon: Icon(Icons.category),
+              label: "অনুরোধ".tr,
+              icon: Icon(FontAwesomeIcons.solidHandshake),
               backgroundColor: AppColor.kDarkGreen,
             ),
             BottomNavigationBarItem(
-              label: "Product",
-              icon: Icon(Icons.bookmark_border),
+              label: "বিজ্ঞপ্তি".tr,
+              icon: Icon(FontAwesomeIcons.solidBell),
               backgroundColor: AppColor.kDarkGreen,
             ),
             BottomNavigationBarItem(
-              label: "Profile",
-              icon: Icon(Icons.person),
+              label: "প্রোফাইল".tr,
+              icon: Icon(FontAwesomeIcons.solidCircleUser),
               backgroundColor: AppColor.kDarkGreen,
             ),
           ],
@@ -62,7 +72,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
           },
         ),
       ),
-
       body: pages[_currentIndex],
     );
   }

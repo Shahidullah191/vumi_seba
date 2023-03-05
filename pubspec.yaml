@@ -41,7 +41,6 @@ dependencies:
   get: ^4.6.5
   url_launcher: ^6.1.10
   dropdown_button2: ^2.0.0
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
