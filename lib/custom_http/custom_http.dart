@@ -1,25 +1,25 @@
+import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
-class CustomHttpRequest{
 
+class CustomHttpRequest {
   static Future<String> getToken(String username, String password) async {
-    var apiUrl = Uri.parse('https://mutation-api-stage.land.gov.bd/api/getToken');
-
-    var response = await http.post(apiUrl, body: {
+    var apiUrl = Uri.parse('https://api.land.gov.bd/api/getToken');
+    final data = <String, String>{
       'username': username,
       'password': password,
-    });
+      'clientid': "ldtax",
+    };
 
+    var response = await http.post(
+      apiUrl,
+      body: data,
+    );
+    print(response.statusCode);
     if (response.statusCode == 200) {
-      return response.body;
+      return jsonDecode(response.body)['token'];
     } else {
       throw Exception('Failed to get token');
     }
   }
-
-
-
-
 }

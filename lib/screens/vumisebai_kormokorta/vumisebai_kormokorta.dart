@@ -2,72 +2,75 @@ import 'dart:convert';
 
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vumi_seba/screens/vumisebai_kormokorta/vumisebai_kormokorta_details_page.dart';
 
 import '../../const/app_color.dart';
+import '../../custom_http/custom_http.dart';
 import '../../widgets/custom_textstyle.dart';
-import 'package:http/http.dart' as http;
 
 class VumiSebaiKormokorta extends StatefulWidget {
-  final String token;
-  const VumiSebaiKormokorta({Key? key, required this.token}) : super(key: key);
+  const VumiSebaiKormokorta({Key? key}) : super(key: key);
 
   @override
   State<VumiSebaiKormokorta> createState() => VumiSebaiKormokortaState();
 }
 
 class VumiSebaiKormokortaState extends State<VumiSebaiKormokorta> {
-
-  late List _divisions;
-  late String? _selectedDivision;
-  bool _isLoading = false;
-
-
-
+  List? _divisions;
+  String? _selectedDivision;
+  Future<String?> getToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('token');
+  }
   //////////////////////////////////////////////
 
-  late List _districts;
-  late String? _selectedDistrict;
+  List? _districts;
+  String? _selectedDistrict;
 
   /////////////////////////////////////////
 
-  late List _upazilas;
-  late String? _selectedUpazila;
-
+  List? _upazilas;
+  String? _selectedUpazila;
+  late bool bn;
   ///////////////////////////////////////////////
+  Future<void> saveToken(String token) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('token', token);
+  }
 
+  Future<void> getTokenAndSave() async {
+    try {
+      print("start");
+      String token =
+          await CustomHttpRequest.getToken('mysoft', '#mysoft@ldtax#');
 
+      await saveToken(token);
+    } catch (e) {
+      // handle error
+      print(e.toString());
+    }
+  }
 
+  @override
+  Future<void> didChangeDependencies() async {
+    EasyLoading.show(status: 'Loading....');
+    Future.delayed(Duration.zero);
+    await getTokenAndSave();
+    await _getDivisions();
+
+    super.didChangeDependencies();
+  }
 
   @override
   void initState() {
+    Get.locale!.languageCode == 'bn' ? bn = true : bn = false;
     super.initState();
-    _getDivisions();
-    _getDistricts();
-    _getUpazilas();
   }
-
-
-  // final List<String> items1 = [
-  //   'Item1',
-  //   'Item2',
-  //   'Item3',
-  // ];
-  // final List<String> items2 = [
-  //   'Item1',
-  //   'Item2',
-  //   'Item3',
-  // ];
-  // final List<String> items3 = [
-  //   'Item1',
-  //   'Item2',
-  //   'Item3',
-  // ];
-  // String? selectedValue1;
-  // String? selectedValue2;
-  // String? selectedValue3;
 
   @override
   Widget build(BuildContext context) {
@@ -153,12 +156,12 @@ class VumiSebaiKormokortaState extends State<VumiSebaiKormokorta> {
                           ),
                         ),
                         items: _divisions
-                            .map((item) => DropdownMenuItem<String>(
-                                  value: item,
+                            ?.map((item) => DropdownMenuItem<String>(
+                                  value: bn ? item['name_bn'] : item['name'],
                                   child: Padding(
                                     padding: EdgeInsets.only(left: 12.w),
                                     child: Text(
-                                      item,
+                                      bn ? item['name_bn'] : item['name'],
                                       style: const TextStyle(
                                         fontSize: 14,
                                       ),
@@ -170,6 +173,7 @@ class VumiSebaiKormokortaState extends State<VumiSebaiKormokorta> {
                         onChanged: (value) {
                           setState(() {
                             _selectedDivision = value as String;
+                            _getDistricts();
                             _selectedDistrict = null;
                             _selectedUpazila = null;
                           });
@@ -233,12 +237,12 @@ class VumiSebaiKormokortaState extends State<VumiSebaiKormokorta> {
                             ),
                           ),
                           items: _districts
-                              .map((item) => DropdownMenuItem<String>(
-                                    value: item,
+                              ?.map((item) => DropdownMenuItem<String>(
+                                    value: bn ? item['name_bn'] : item['name'],
                                     child: Padding(
                                       padding: EdgeInsets.only(left: 12.w),
                                       child: Text(
-                                        item,
+                                        bn ? item['name_bn'] : item['name'],
                                         style: const TextStyle(
                                           fontSize: 14,
                                         ),
@@ -250,6 +254,7 @@ class VumiSebaiKormokortaState extends State<VumiSebaiKormokorta> {
                           onChanged: (value) {
                             setState(() {
                               _selectedDistrict = value as String;
+                              _getUpazilas();
                               _selectedUpazila = null;
                             });
                           },
@@ -311,12 +316,12 @@ class VumiSebaiKormokortaState extends State<VumiSebaiKormokorta> {
                             ),
                           ),
                           items: _upazilas
-                              .map((item) => DropdownMenuItem<String>(
-                                    value: item,
+                              ?.map((item) => DropdownMenuItem<String>(
+                                    value: bn ? item['name_bn'] : item['name'],
                                     child: Padding(
                                       padding: EdgeInsets.only(left: 12.w),
                                       child: Text(
-                                        item,
+                                        bn ? item['name_bn'] : item['name'],
                                         style: const TextStyle(
                                           fontSize: 14,
                                         ),
@@ -369,12 +374,15 @@ class VumiSebaiKormokortaState extends State<VumiSebaiKormokorta> {
                           style: OutlinedButton.styleFrom(
                             backgroundColor: AppColor.kDarkGreen,
                           ),
-                          onPressed: () {
+                          onPressed: () async {
+                            setState(() => {
+                                  EasyLoading.show(status: 'Loading....'),
+                                });
+                            await getUsers();
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                   VumiSebaiKormokortaDetails(
-                                       user: getUsers(),
-                                   ),
+                              builder: (context) => VumiSebaiKormokortaDetails(
+                                user: users,
+                              ),
                             ));
                           },
                           child: Text(
@@ -410,57 +418,52 @@ class VumiSebaiKormokortaState extends State<VumiSebaiKormokorta> {
     );
   }
 
-
   Future<void> _getDivisions() async {
-    setState(() {
-      _isLoading = true;
-    });
-
-    final String apiUrl = 'https://mutation-api-stage.land.gov.bd/api/divisions';
+    const String apiUrl = 'https://api.land.gov.bd/api/divisions';
+    final token = await getToken();
     final response = await http.post(
       Uri.parse(apiUrl),
-      headers: {'Authorization': 'Bearer ${widget.token}'},
+      headers: {'APIAuthorization': 'bearer $token'},
     );
 
-    setState(() {
-      _isLoading = false;
-    });
-
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
+      final data = jsonDecode(response.body)['data'];
       setState(() {
-        _divisions = data['divisions'];
+        _divisions = data;
       });
+
+      EasyLoading.dismiss();
     } else {
+      EasyLoading.dismiss();
       throw Exception('Failed to get divisions');
     }
   }
 
-
   //////////////////////////////////////////////////////////////////
 
   Future<void> _getDistricts() async {
-    setState(() {
-      _isLoading = true;
-    });
+    EasyLoading.show(status: 'Loading....');
 
-    final String apiUrl = 'https://mutation-api-stage.land.gov.bd/api/districts';
+    int v = index(_divisions, _selectedDivision);
+
+    const String apiUrl = 'https://api.land.gov.bd/api/districts';
+    final token = await getToken();
     final response = await http.post(
       Uri.parse(apiUrl),
-      headers: {'Authorization': 'Bearer ${widget.token}'},
-      body: {'division': _selectedDivision},
+      headers: {'APIAuthorization': 'bearer $token'},
+      body: {
+        'divisionId': '$v',
+      },
     );
 
-    setState(() {
-      _isLoading = false;
-    });
-
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
+      final data = jsonDecode(response.body)['data'];
       setState(() {
-        _districts = data['districts'];
+        _districts = data;
       });
+      EasyLoading.dismiss();
     } else {
+      EasyLoading.dismiss();
       throw Exception('Failed to get districts');
     }
   }
@@ -469,25 +472,24 @@ class VumiSebaiKormokortaState extends State<VumiSebaiKormokorta> {
 
   Future<void> _getUpazilas() async {
     setState(() {
-      _isLoading = true;
+      EasyLoading.show(status: 'Loading....');
     });
-
-    final String apiUrl = 'https://mutation-api-stage.land.gov.bd/api/upazilas?districtsId=$_selectedDistrict';
-    final response = await http.post(
-      Uri.parse(apiUrl),
-      headers: {'Authorization': 'Bearer ${widget.token}'},
-    );
-
-    setState(() {
-      _isLoading = false;
-    });
+    int v = index(_districts, _selectedDistrict);
+    const String apiUrl = 'https://api.land.gov.bd/api/upazilas';
+    final token = await getToken();
+    final response = await http.post(Uri.parse(apiUrl),
+        headers: {'APIAuthorization': 'bearer $token'},
+        body: {"districtsId": "$v"});
 
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
+      final data = jsonDecode(response.body)["data"];
       setState(() {
-        _upazilas = data['upazilas'];
+        _upazilas = data;
       });
+
+      EasyLoading.dismiss();
     } else {
+      EasyLoading.dismiss();
       throw Exception('Failed to get upazilas');
     }
   }
@@ -495,20 +497,34 @@ class VumiSebaiKormokortaState extends State<VumiSebaiKormokorta> {
   ///////////////////////////////////////////////////////////////////////////
   static List<dynamic> users = [];
   Future<void> getUsers() async {
-    final String apiUrl = 'https://mutation-api-stage.land.gov.bd/api/get-office-wise-user';
-    final response = await http.post(
-      Uri.parse(apiUrl),
-      headers: {'Authorization': 'Bearer ${widget.token}'},
-    );
+    int v = index(_upazilas, _selectedUpazila);
+    const String apiUrl = 'https://api.land.gov.bd/api/get-office-wise-user';
+    final token = await getToken();
+    final response = await http.post(Uri.parse(apiUrl),
+        headers: {'APIAuthorization': 'bearer $token'},
+        body: {"upazila_id": "$v"});
 
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
+      final data = jsonDecode(response.body)["data"];
+      print(data);
       setState(() {
-        users = data['users'];
+        EasyLoading.dismiss();
+        users = data;
       });
     } else {
+      EasyLoading.dismiss();
       throw Exception('Failed to get users');
     }
   }
 
+  /////////////////////////////////////////////////////////////////////
+
+  int index(List? value, String? selected) {
+    for (var element in value!) {
+      if (element['name'] == selected || element['name_bn'] == selected) {
+        return element['index'];
+      }
+    }
+    return 0;
+  }
 }
